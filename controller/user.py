@@ -166,7 +166,7 @@ def find_follower(data):
          print(my_follower)
    if len(my_follower)>=0:
       return {"Sucess":True,"Status Code":"200","Msg":f"Your Follower {my_follower}"}   
-   raise {"Msg":"Not follower you"}   
+   raise HTTPException (status_code=409,detail="Not follower you")   
 
 # Check User Following
 my_following=[]
@@ -177,7 +177,7 @@ def find_following(data):
          print(my_following)
    if len(my_following)>=0:
       return   {"Sucess":True,"Status Code":"200","Msg":f"Your following {my_following}"} 
-   raise {"Msg":"your not follow to others"}  
+   raise HTTPException (status_code=409,detail="your not follow to others")  
         
 
 
