@@ -209,6 +209,17 @@ def block_ff(data):
 
 
 
+#unblock
+def unblock(data):
+   for i in block_data:
+      if i["block_by"]==data.block_by and i["block_to"]==data.block_to:
+         block_data.remove(i)
+         return {"msg":"unblock"} 
+   raise HTTPException (status_code=400,detail="you allready not block this user")
+     
+
+
+
 
 
 

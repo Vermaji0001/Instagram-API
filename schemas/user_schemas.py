@@ -68,6 +68,4 @@ class Follower(BaseModel):
 class Following(BaseModel):
     username:str
 
-class Unfollow(BaseModel):
-    follow_by:str
-    follow_to:str    
+    

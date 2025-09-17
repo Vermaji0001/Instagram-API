@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from schemas.user_schemas import Register,Login,OTP,ResetData,User,Post,GetById,GetByTitle,UserId,FF,Follower,Following,Block,Unfollow
-from controller.user import user_register,user_login,otp_sent,reset_password,user_add,user_post,getbyid,getbyititle,allpost,ff_post,find_follower,find_following,block_ff,unfollow
+from schemas.user_schemas import Register,Login,OTP,ResetData,User,Post,GetById,GetByTitle,UserId,FF,Follower,Following,Block
+from controller.user import user_register,user_login,otp_sent,reset_password,user_add,user_post,getbyid,getbyititle,allpost,ff_post,find_follower,find_following,block_ff,unfollow,unblock
 
 
 
@@ -76,14 +76,21 @@ def xyz_ff(data:FF):
      return ff_post(data)
 
 
-
+#unfollow
 @router.post("/unfollow")
-def unfollow_user(data:Unfollow):
+def unfollow_user(data:FF):
     return unfollow(data)
+
+
 #block ff
 @router.post("/block")
 def ff_block(data:Block):
     return block_ff(data)
+
+#unblock
+@router.post("/unblock")
+def unblock_user(data:Block):
+    return unblock(data)
 
 
 
