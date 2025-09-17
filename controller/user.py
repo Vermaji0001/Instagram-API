@@ -144,15 +144,43 @@ instagram_users=[{"username":"vikram0001","email":"vikram005104@gmail.com","pass
 
 new_data=[]
 def ff_post(data):
+   s={"follow_by":data.follow_by,"follow_to":data.follow_to}
    for i in instagram_users:
-      if i["username"]==data.follow_by :
+      if s not in new_data:
+         return xyz1(data)
+   raise HTTPException(status_code=409,detail="already follow") 
+def xyz1 (data):        
+   for x in instagram_users:
+      if x["username"]==data.follow_by : 
+         return xyz2(data)
+   raise HTTPException(status_code=409,detail=f"{data.follow_by} not exists in data base")
+
+def xyz2 (data):
+   for i in instagram_users:
+      if i["username"]==data.follow_to :
+         new_data.append(data.dict())
+         return {"Sucess":True,"Status Code":"200","msg":f"{data.follow_by}  Follow to {data.follow_to}"}
+   raise HTTPException(status_code=409,detail=f"{data.follow_to} not exists in data base")
+ 
+   
+
+#block msg
+
+block_data=[]
+def block_ff(data):
+   for i in instagram_users:
+      if i["username"]==data.block_by :
        for x in instagram_users:
-           if x["username"]==data.follow_to :
-              new_data.append(data.dict())
+           if x["username"]==data.block_to :
+              block_data.append(data.dict())
               print(new_data)
-              return {"Sucess":True,"Status Code":"200","msg":f"{data.follow_by}  Follow to {data.follow_to}"}
-       raise HTTPException(status_code=409,detail=f"You can not follow to {data.follow_to} Because do not exists in data base") 
-   raise HTTPException(status_code=409,detail=f" {data.follow_by} You are not exists in data base") 
+              return {"Sucess":True,"Status Code":"200","msg":f"{data.block_by}  block to {data.block_to}"}
+       raise HTTPException(status_code=409,detail=f"You can not block to {data.block_to} Because do not exists in data base") 
+   raise HTTPException(status_code=409,detail=f" {data.block_by} You are not exists in data base") 
+
+
+
+
 
 
 
@@ -160,24 +188,45 @@ def ff_post(data):
 # Check User Follower
 my_follower=[]
 def find_follower(data):
+   my_follower.clear()
    for i in new_data:
-      if data.username==i["follow_to"]:
+     if data.username==i["follow_to"]:
          my_follower.append(i["follow_by"])
-         print(my_follower)
-   if len(my_follower)>=0:
-      return {"Sucess":True,"Status Code":"200","Msg":f"Your Follower {my_follower}"}   
-   raise HTTPException (status_code=409,detail="Not follower you")   
+   if len(my_follower)>0:
+      return xyz0001(data)      
+   raise HTTPException(status_code=409,detail="not follower")
+
+def xyz0001(data):         
+   for s in block_data: 
+     if data.username==s["block_by"]:
+       return xyz0002()
+   return {"Sucess":True,"Status Code":"200","Your Follower":my_follower}
+  
+
+def xyz0002():
+   for  i in block_data:
+      for s in new_data:
+         if s["follow_by"]==i["block_to"]:
+               my_follower.remove(s["follow_by"])
+               return {"your folower":my_follower}
+   raise HTTPException(status_code=409,detail="Not block")
+
+
+
+
 
 # Check User Following
 my_following=[]
 def find_following(data):
+   my_following.clear()
    for  i in new_data:
       if data.username==i["follow_by"]:
          my_following.append(i["follow_to"])
          print(my_following)
    if len(my_following)>=0:
       return   {"Sucess":True,"Status Code":"200","Msg":f"Your following {my_following}"} 
-   raise HTTPException (status_code=409,detail="your not follow to others")  
+   raise HTTPException (status_code=409,detail="your not follow to others")
+ 
         
 
 
