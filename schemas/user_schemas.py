@@ -57,8 +57,17 @@ class FF(BaseModel):
     follow_by:str
     follow_to:str
 
+
+class Block(BaseModel):
+    block_by:str
+    block_to:str   
+
 class Follower(BaseModel):
     username:str
 
 class Following(BaseModel):
     username:str
+
+class Unfollow(BaseModel):
+    follow_by:str
+    follow_to:str    

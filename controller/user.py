@@ -137,11 +137,28 @@ def allpost(data):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #Instagram User Dummy Data
 instagram_users=[{"username":"vikram0001","email":"vikram005104@gmail.com","password":"vikram123"},
                  {"username":"prince0001","email":"pv005104@gmail.com","password":"prince123"},
                 {"username":"jatin0001","email":"jatin005104@gmail.com","password":"jatin123"}]
 
+
+#follow
 new_data=[]
 def ff_post(data):
    s={"follow_by":data.follow_by,"follow_to":data.follow_to}
@@ -162,7 +179,19 @@ def xyz2 (data):
          return {"Sucess":True,"Status Code":"200","msg":f"{data.follow_by}  Follow to {data.follow_to}"}
    raise HTTPException(status_code=409,detail=f"{data.follow_to} not exists in data base")
  
-   
+
+
+#unfollow
+def unfollow(data):
+   for i in new_data:
+      if i["follow_by"]==data.follow_by and i["follow_to"]==data.follow_to:
+         new_data.remove(i)
+         return {"msg":"unfollow user"}
+   raise HTTPException (status_code=400,detail="you already not follow this user")
+
+
+
+
 
 #block msg
 

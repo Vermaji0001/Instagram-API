@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from schemas.user_schemas import Register,Login,OTP,ResetData,User,Post,GetById,GetByTitle,UserId,FF,Follower,Following
-from controller.user import user_register,user_login,otp_sent,reset_password,user_add,user_post,getbyid,getbyititle,allpost,ff_post,find_follower,find_following
+from schemas.user_schemas import Register,Login,OTP,ResetData,User,Post,GetById,GetByTitle,UserId,FF,Follower,Following,Block,Unfollow
+from controller.user import user_register,user_login,otp_sent,reset_password,user_add,user_post,getbyid,getbyititle,allpost,ff_post,find_follower,find_following,block_ff,unfollow
 
 
 
@@ -65,10 +65,25 @@ def postall(data:UserId):
 
 
 
+
+
+
+
+
 #Msg show for follow and following
 @router.post("/postff")
 def xyz_ff(data:FF):
      return ff_post(data)
+
+
+
+@router.post("/unfollow")
+def unfollow_user(data:Unfollow):
+    return unfollow(data)
+#block ff
+@router.post("/block")
+def ff_block(data:Block):
+    return block_ff(data)
 
 
 
