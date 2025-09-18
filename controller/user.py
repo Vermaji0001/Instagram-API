@@ -241,14 +241,13 @@ def xyz0001(data):
      if data.username==s["block_by"]:
        return xyz0002()
    return {"Sucess":True,"Status Code":"200","Your Follower":my_follower}
-  
-
+   
 def xyz0002():
    for  i in block_data:
       for s in new_data:
          if s["follow_by"]==i["block_to"]:
                my_follower.remove(s["follow_by"])
-               return {"your folower":my_follower}
+               return {"Sucess":True,"Status Code":"200","Your Follower":my_follower}
    raise HTTPException(status_code=409,detail="Not block")
 
 
@@ -264,8 +263,22 @@ def find_following(data):
          my_following.append(i["follow_to"])
          print(my_following)
    if len(my_following)>=0:
-      return   {"Sucess":True,"Status Code":"200","Msg":f"Your following {my_following}"} 
+      return   xyz003(data)
    raise HTTPException (status_code=409,detail="your not follow to others")
+def xyz003(data):
+   for i in block_data:
+      if data.username==i["block_to"]:
+         return xyz004(data)
+   return {"Sucess":True,"Status Code":"200","Your Follower":my_following}
+
+def xyz004(data):
+   for i in block_data:
+      for s in new_data:
+         if i["block_by"]==s["follow_to"]:
+            my_following.remove(s["follow_to"])
+            return {"Sucess":True,"Status Code":"200","Your Follower":my_following}
+   raise HTTPException(status_code=409,detail="Not block")      
+         
  
         
 
